@@ -59,3 +59,55 @@ databases:
       - production
       - file-based
       - containerized
+
+  # PostgreSQL en RAK
+  - id: db-rak-postgres
+    name: postgres
+    engine: postgres
+    version: unknown
+    server: srv-rak
+    port: 5432
+    container_name: postgres
+    databases: []
+    services: []  # Probablemente usado por RootSearch u otro servicio
+    credentials: null
+    tags:
+      - production
+      - relational
+      - containerized
+
+  # MongoDB en RAK
+  - id: db-rak-mongo
+    name: fiambre-mongo
+    engine: mongodb
+    version: 4.4
+    server: srv-rak
+    port: 27017
+    container_name: fiambre-mongo
+    databases:
+      - n8n           # N8N database en RAK
+    services:
+      - svc-n8n-rak
+    credentials: null
+    tags:
+      - production
+      - document
+      - containerized
+
+  # MySQL en RAK
+  - id: db-rak-mysql
+    name: mysql
+    engine: mysql
+    version: latest
+    server: srv-rak
+    port: 3306
+    container_name: mysql
+    databases:
+      - wordpress      # WordPress database
+    services:
+      - svc-wordpress
+    credentials: null
+    tags:
+      - production
+      - relational
+      - containerized

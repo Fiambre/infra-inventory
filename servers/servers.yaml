@@ -61,17 +61,29 @@ servers:
     tags:
       - idle
 
-  # RAK - Servidor adicional
+  # RAK - Servidor SGDP/Selknam (actualizado 2026-03-10)
   - id: srv-rak
-    hostname: rak
-    ip: 100.92.237.92
-    tailscale_ip: 100.92.237.92
+    hostname: ubuntu
+    ip: 100.109.222.33
+    tailscale_ip: 100.109.222.33
     provider: bare-metal
     region: unknown
-    os: unknown
-    services: []
+    os: ubuntu
+    ram_gb: 2.4
+    storage_gb: 37
+    services:
+      - svc-n8n-rak
+      - svc-portainer-agent
+      - svc-rootsearch
+      - svc-wordpress
+      - svc-cloudflare-tunnel-rak
+    databases:
+      - db-rak-postgres
+      - db-rak-mongo
+      - db-rak-mysql
     tags:
-      - idle
+      - production
+      - sgd-project
 
   # BAAM - Servidor offline
   - id: srv-baam

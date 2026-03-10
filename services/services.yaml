@@ -168,3 +168,68 @@ services:
       - whatsapp
       - monitoring
       - containerized
+
+  # N8N en RAK - Instancia de N8N para SGDP
+  - id: svc-n8n-rak
+    description: Plataforma de automatización de workflows (instancia SGDP)
+    technology: docker
+    port: 5678
+    server: srv-rak
+    databases:
+      - db-rak-mongo
+    dependencies: []
+    tags:
+      - production
+      - automation
+      - containerized
+
+  # Portainer Agent en RAK
+  - id: svc-portainer-agent
+    description: Agente de Portainer para monitoreo de Docker
+    technology: docker
+    port: 9001
+    server: srv-rak
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - management
+      - containerized
+
+  # RootSearch - Servicio Selknam-Tech
+  - id: svc-rootsearch
+    description: Servicio de búsqueda para Selknam-Tech
+    technology: docker
+    server: srv-rak
+    databases: []
+    dependencies: []
+    repository: ghcr.io/selknam-tech/rootsearch
+    tags:
+      - production
+      - selknam
+      - containerized
+
+  # WordPress - Sitio Tecnogas
+  - id: svc-wordpress
+    description: Sitio WordPress para Tecnogas
+    technology: docker
+    server: srv-rak
+    databases:
+      - db-rak-mysql
+    dependencies: []
+    tags:
+      - production
+      - wordpress
+      - containerized
+
+  # Cloudflare Tunnel en RAK
+  - id: svc-cloudflare-tunnel-rak
+    description: Agente de Cloudflare Tunnel para RAK
+    technology: docker
+    server: srv-rak
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - networking
+      - containerized
