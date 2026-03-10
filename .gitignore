@@ -1,0 +1,49 @@
+# Archives
+*.7z
+*.gz
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Lock files
+*.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Secrets (should never be in git)
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+credentials/
+.creds
