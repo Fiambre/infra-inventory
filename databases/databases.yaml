@@ -1,0 +1,61 @@
+# Definiciones de bases de datos
+# Actualizado: 2026-03-09
+
+databases:
+  # PostgreSQL en UREK
+  - id: db-urek-postgres
+    name: urek-postgres
+    engine: postgres
+    version: "16.13"
+    server: srv-urek
+    port: 5432
+    container_name: urek-postgres
+    databases:
+      - homeassistant  # Home Assistant DB
+      - netbox        # Potencial NetBox (futuro)
+    services:
+      - svc-homeassistant
+    credentials:
+      akeyless_path: /credentials/ssh/urek  # Usar SSH para acceso
+      username: postgres
+    tags:
+      - production
+      - relational
+      - containerized
+
+  # MongoDB en UREK
+  - id: db-urek-mongo
+    name: urek-mongo
+    engine: mongodb
+    version: unknown
+    server: srv-urek
+    port: 27017
+    container_name: urek-mongo
+    databases:
+      - n8n           # N8N database
+      - stock_data    # Datos de trading (MongoDB stock data)
+    services:
+      - svc-n8n
+    credentials:
+      akeyless_path: /urek/mongodb_stock_data
+    tags:
+      - production
+      - document
+      - containerized
+
+  # SQLite en UREK (WebDB)
+  - id: db-urek-webdb
+    name: webdb
+    engine: sqlite
+    version: 3
+    server: srv-urek
+    port: null  # SQLite es file-based
+    container_name: webdb
+    databases:
+      - webdb
+    services: []  # Servicio específico desconocido
+    credentials: null
+    tags:
+      - production
+      - file-based
+      - containerized

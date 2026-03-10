@@ -1,0 +1,170 @@
+# Definiciones de servicios
+# Actualizado: 2026-03-09
+
+services:
+  # Home Assistant - Automatización del hogar
+  - id: svc-homeassistant
+    description: Plataforma de automatización del hogar
+    technology: docker
+    image: homeassistant/home-assistant:stable
+    port: 8123
+    server: srv-urek
+    databases: []
+    dependencies: []
+    urls:
+      - https://home.fiambre.dev/
+    tags:
+      - production
+      - home-automation
+      - containerized
+
+  # N8N - Automatización de workflows
+  - id: svc-n8n
+    description: Plataforma de automatización de workflows
+    technology: docker
+    port: 5678
+    server: srv-urek
+    databases:
+      - db-urek-mongo
+    dependencies:
+      - svc-mosquitto
+    tags:
+      - production
+      - automation
+      - containerized
+
+  # MinIO - Almacenamiento de objetos compatible S3
+  - id: svc-minio
+    description: Servicio de almacenamiento de objetos compatible S3
+    technology: docker
+    port_api: 9400
+    port_console: 9401
+    server: srv-urek
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - storage
+      - containerized
+
+  # Portainer - Gestión de contenedores Docker
+  - id: svc-portainer
+    description: Panel de administración para Docker
+    technology: docker
+    port: 9000
+    server: srv-urek
+    databases: []
+    dependencies:
+      - svc-docker-daemon
+    tags:
+      - production
+      - management
+      - containerized
+
+  # Browserless - Headless Chrome para scraping
+  - id: svc-browserless
+    description: Headless Chrome service para web scraping
+    technology: docker
+    port: 3000
+    server: srv-urek
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - scraping
+      - containerized
+
+  # Organizr - Dashboard de servicios
+  - id: svc-organizr
+    description: Dashboard unificado para servicios
+    technology: docker
+    port: 8080
+    server: srv-urek
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - dashboard
+      - containerized
+
+  # Mosquitto - Broker MQTT
+  - id: svc-mosquitto
+    description: Broker MQTT para IoT
+    technology: docker
+    port: 1883
+    server: srv-urek
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - mqtt
+      - containerized
+      - iot
+
+  # Cloudflared - Tunnel de Cloudflare
+  - id: svc-cloudflared
+    description: Agente de Cloudflare Tunnel para acceso seguro
+    technology: docker
+    server: srv-urek
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - networking
+      - containerized
+
+  # JupyterLab - Entorno de notebooks
+  - id: svc-jupyterlab
+    description: Entorno de notebooks Python interactivo
+    technology: docker
+    port: 8888
+    server: srv-urek
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - development
+      - containerized
+
+  # OpenClaw Gateway - Gateway de agentes de IA
+  - id: svc-openclaw-gateway
+    description: Gateway para agentes de IA OpenClaw
+    technology: docker
+    port: 18789
+    server: srv-anak
+    databases: []
+    dependencies:
+      - svc-docker-daemon
+    repository: github.com/Fiambre/openclaw
+    tags:
+      - production
+      - ai
+      - containerized
+
+  # Docker Daemon - Runtime de contenedores (sistema)
+  - id: svc-docker-daemon
+    description: Docker daemon para ejecución de contenedores
+    technology: system
+    servers:
+      - srv-urek
+      - srv-anak
+    databases: []
+    dependencies: []
+    tags:
+      - system
+      - container-runtime
+
+  # Baileys WhatsApp Monitor - Monitor de WhatsApp
+  - id: svc-baileys-whatsapp
+    description: Servicio de monitor de mensajes WhatsApp en tiempo real
+    technology: docker
+    server: srv-anak
+    databases: []
+    dependencies:
+      - svc-minio
+    repository: github.com/Fiambre/baileys-whatsapp-monitor
+    tags:
+      - production
+      - whatsapp
+      - monitoring
+      - containerized

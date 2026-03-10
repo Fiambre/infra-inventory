@@ -1,0 +1,66 @@
+# Schema para validar archivos de bases de datos
+
+type: object
+properties:
+  databases:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: "^db-[a-z0-9-]+$"
+          description: Identificador único de la base de datos
+        name:
+          type: string
+          description: Nombre de la instancia de base de datos
+        engine:
+          type: string
+          enum: [postgres, mysql, mariadb, mongodb, redis, sqlite, elasticsearch, mssql]
+          description: Motor de base de datos
+        version:
+          type: string
+          description: Versión del motor
+        server:
+          type: string
+          pattern: "^srv-[a-z0-9-]+$"
+          description: ID del servidor donde corre
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Puerto de la base de datos (null para file-based)
+        container_name:
+          type: string
+          description: Nombre del contenedor Docker (si aplica)
+        databases:
+          type: array
+          items:
+            type: string
+          description: Lista de databases dentro de la instancia
+        services:
+          type: array
+          items:
+            type: string
+            pattern: "^svc-[a-z0-9-]+$"
+          description: IDs de servicios que usan esta base de datos
+        credentials:
+          type: object
+          properties:
+            akeyless_path:
+              type: string
+              description: Ruta en Akeyless para credenciales
+            username:
+              type: string
+              description: Nombre de usuario
+          description: Referencia a credenciales (sin valores)
+        tags:
+          type: array
+          items:
+            type: string
+          description: Etiquetas para categorización
+      required:
+        - id
+        - name
+        - engine
+        - server

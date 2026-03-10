@@ -1,0 +1,98 @@
+# Definiciones de servidores en la infraestructura
+# Actualizado: 2026-03-09
+
+servers:
+  # UREK - Servidor principal de home/lab
+  - id: srv-urek
+    hostname: urek
+    ip: 100.70.74.125
+    tailscale_ip: 100.70.74.125
+    provider: bare-metal
+    region: home-santiago
+    os: ubuntu-22.04
+    ram_gb: 3.7
+    storage_gb: 117
+    services:
+      - svc-homeassistant
+      - svc-n8n
+      - svc-minio
+      - svc-portainer
+      - svc-browserless
+      - svc-organizr
+      - svc-mosquitto
+      - svc-cloudflared
+      - svc-jupyterlab
+    databases:
+      - db-urek-postgres
+      - db-urek-mongo
+      - db-urek-webdb
+    tags:
+      - production
+      - lab
+      - home-automation
+
+  # ANAK - Servidor de desarrollo/cicd
+  - id: srv-anak
+    hostname: anak
+    ip: 172.19.0.1
+    tailscale_ip: 100.125.220.30
+    provider: bare-metal
+    region: home-santiago
+    os: ubuntu-22.04
+    ram_gb: 6.7
+    storage_gb: 914
+    services:
+      - svc-openclaw-gateway
+      - svc-docker-daemon
+    tags:
+      - development
+      - cicd
+      - docker-host
+
+  # KHUN - Servidor adicional (sin detalles completos)
+  - id: srv-khun
+    hostname: khun
+    ip: 100.105.231.35
+    tailscale_ip: 100.105.231.35
+    provider: bare-metal
+    region: unknown
+    os: unknown
+    services: []
+    tags:
+      - idle
+
+  # RAK - Servidor adicional
+  - id: srv-rak
+    hostname: rak
+    ip: 100.92.237.92
+    tailscale_ip: 100.92.237.92
+    provider: bare-metal
+    region: unknown
+    os: unknown
+    services: []
+    tags:
+      - idle
+
+  # BAAM - Servidor offline
+  - id: srv-baam
+    hostname: baam
+    ip: 100.82.172.58
+    tailscale_ip: 100.82.172.58
+    provider: bare-metal
+    region: unknown
+    os: unknown
+    services: []
+    tags:
+      - offline
+
+  # PLAYA - Servidor offline
+  - id: srv-playa
+    hostname: playa
+    ip: 100.81.143.61
+    tailscale_ip: 100.81.143.61
+    provider: bare-metal
+    region: unknown
+    os: unknown
+    services: []
+    tags:
+      - offline

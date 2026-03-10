@@ -1,0 +1,78 @@
+# Schema para validar archivos de servicios
+
+type: object
+properties:
+  services:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: "^svc-[a-z0-9-]+$"
+          description: Identificador único del servicio
+        description:
+          type: string
+          description: Descripción breve del servicio
+        technology:
+          type: string
+          enum: [docker, kubernetes, system, vm, bare-metal]
+          description: Tecnología de despliegue
+        image:
+          type: string
+          description: Imagen Docker (si aplica)
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Puerto principal del servicio
+        port_api:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Puerto API (opcional)
+        port_console:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Puerto de consola web (opcional)
+        server:
+          type: string
+          pattern: "^srv-[a-z0-9-]+$"
+          description: ID del servidor donde corre el servicio
+        servers:
+          type: array
+          items:
+            type: string
+            pattern: "^srv-[a-z0-9-]+$"
+          description: IDs de servidores (para servicios multi-host)
+        databases:
+          type: array
+          items:
+            type: string
+            pattern: "^db-[a-z0-9-]+$"
+          description: IDs de bases de datos que usa
+        dependencies:
+          type: array
+          items:
+            type: string
+            pattern: "^(svc-|srv-|db-)[a-z0-9-]+$"
+          description: IDs de servicios o recursos dependientes
+        repository:
+          type: string
+          description: URL del repositorio de código
+        urls:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: URLs donde el servicio es accesible
+        tags:
+          type: array
+          items:
+            type: string
+          description: Etiquetas para categorización
+      required:
+        - id
+        - description
+        - technology

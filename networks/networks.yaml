@@ -1,0 +1,70 @@
+# Definiciones de redes
+# Actualizado: 2026-03-09
+
+networks:
+  # Red Tailscale - VPN mesh entre servidores
+  - id: net-tailscale
+    name: Tailscale Mesh Network
+    type: mesh-vpn
+    provider: tailscale
+    cidr: 100.0.0.0/8
+    servers:
+      - srv-urek         # 100.70.74.125
+      - srv-anak         # 100.125.220.30
+      - srv-khun         # 100.105.231.35
+      - srv-rak          # 100.92.237.92
+      - srv-baam         # 100.82.172.58
+      - srv-playa        # 100.81.143.61
+    tags:
+      - production
+      - vpn
+      - encrypted
+
+  # Red LAN de Santiago - Red local física
+  - id: net-lan-santiago
+    name: Home LAN Santiago
+    type: lan
+    provider: local
+    cidr: 192.168.0.0/16
+    servers:
+      - srv-anak         # 172.19.0.1 (en bridge)
+    tags:
+      - production
+      - local
+      - physical
+
+  # Red Docker UREK - Bridge network para contenedores
+  - id: net-docker-urek
+    name: Docker Bridge - UREK
+    type: docker-bridge
+    provider: docker
+    cidr: 172.17.0.0/16
+    server: srv-urek
+    services:
+      - svc-homeassistant
+      - svc-n8n
+      - svc-minio
+      - svc-portainer
+      - svc-browserless
+      - svc-organizr
+      - svc-mosquitto
+      - svc-cloudflared
+      - svc-jupyterlab
+    tags:
+      - production
+      - container-network
+      - bridge
+
+  # Red Docker ANAK - Bridge network para contenedores
+  - id: net-docker-anak
+    name: Docker Bridge - ANAK
+    type: docker-bridge
+    provider: docker
+    cidr: 172.19.0.0/16
+    server: srv-anak
+    services:
+      - svc-openclaw-gateway
+    tags:
+      - production
+      - container-network
+      - bridge

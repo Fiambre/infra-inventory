@@ -1,0 +1,66 @@
+# Schema para validar archivos de servidores
+
+type: object
+properties:
+  servers:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: "^srv-[a-z0-9-]+$"
+          description: Identificador único del servidor
+        hostname:
+          type: string
+          description: Nombre DNS o hostname
+        ip:
+          type: string
+          format: ipv4
+          description: Dirección IP principal
+        tailscale_ip:
+          type: string
+          format: ipv4
+          description: Dirección IP en Tailscale (opcional)
+        provider:
+          type: string
+          enum: [bare-metal, aws, gcp, azure, digitalocean, linode]
+          description: Proveedor del servidor
+        region:
+          type: string
+          description: Región o ubicación física
+        os:
+          type: string
+          pattern: "^[a-z]+-\\d+\\.\\d+$"
+          description: Sistema operativo y versión
+        ram_gb:
+          type: number
+          minimum: 0
+          description: RAM en GB
+        storage_gb:
+          type: number
+          minimum: 0
+          description: Almacenamiento en GB
+        services:
+          type: array
+          items:
+            type: string
+            pattern: "^svc-[a-z0-9-]+$"
+          description: IDs de servicios que corren en este servidor
+        databases:
+          type: array
+          items:
+            type: string
+            pattern: "^db-[a-z0-9-]+$"
+          description: IDs de bases de datos en este servidor
+        tags:
+          type: array
+          items:
+            type: string
+          description: Etiquetas para categorización
+      required:
+        - id
+        - hostname
+        - ip
+        - provider
+        - os

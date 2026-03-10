@@ -1,0 +1,53 @@
+# Schema para validar archivos de redes
+
+type: object
+properties:
+  networks:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: "^net-[a-z0-9-]+$"
+          description: Identificador único de la red
+        name:
+          type: string
+          description: Nombre descriptivo de la red
+        type:
+          type: string
+          enum: [lan, vpn, mesh-vpn, docker-bridge, kubernetes, wan, public, private]
+          description: Tipo de red
+        provider:
+          type: string
+          description: Proveedor o tecnología
+        cidr:
+          type: string
+          pattern: "^\\d+\\.\\d+\\.\\d+\\.\\d+/\\d+$"
+          description: Bloque de red en CIDR
+        server:
+          type: string
+          pattern: "^srv-[a-z0-9-]+$"
+          description: ID del servidor (para redes de un solo host)
+        servers:
+          type: array
+          items:
+            type: string
+            pattern: "^srv-[a-z0-9-]+$"
+          description: IDs de servidores en la red
+        services:
+          type: array
+          items:
+            type: string
+            pattern: "^svc-[a-z0-9-]+$"
+          description: IDs de servicios en la red
+        tags:
+          type: array
+          items:
+            type: string
+          description: Etiquetas para categorización
+      required:
+        - id
+        - name
+        - type
+        - provider
