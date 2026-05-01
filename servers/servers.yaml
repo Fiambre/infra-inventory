@@ -97,7 +97,7 @@ servers:
     tags:
       - offline
 
-  # PLAYA - Servidor offline
+  # PLAYA - Servidor bare-metal
   - id: srv-playa
     hostname: playa
     ip: 100.81.143.61
@@ -107,4 +107,4 @@ servers:
     os: unknown
     services: []
     tags:
-      - offline
+      - online
