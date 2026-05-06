@@ -13,7 +13,6 @@ networks:
       - srv-anak         # 100.125.220.30
       - srv-khun         # 100.105.231.35
       - srv-rak          # 100.92.237.92
-      - srv-baam         # 100.82.172.58
       - srv-playa        # 100.81.143.61
     tags:
       - production

@@ -49,7 +49,7 @@ servers:
       - cicd
       - docker-host
 
-  # KHUN - Servidor adicional (sin detalles completos)
+  # KHUN - Servidor adicional
   - id: srv-khun
     hostname: khun
     ip: 100.105.231.35
@@ -59,7 +59,7 @@ servers:
     os: unknown
     services: []
     tags:
-      - idle
+      - active
 
   # RAK - Servidor SGDP/Selknam (actualizado 2026-03-10)
   - id: srv-rak
@@ -85,19 +85,7 @@ servers:
       - production
       - sgd-project
 
-  # BAAM - Servidor offline
-  - id: srv-baam
-    hostname: baam
-    ip: 100.82.172.58
-    tailscale_ip: 100.82.172.58
-    provider: bare-metal
-    region: unknown
-    os: unknown
-    services: []
-    tags:
-      - offline
-
-  # PLAYA - Servidor bare-metal
+  # PLAYA - Servidor offline
   - id: srv-playa
     hostname: playa
     ip: 100.81.143.61
