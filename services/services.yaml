@@ -233,3 +233,32 @@ services:
       - production
       - networking
       - containerized
+
+  # Caddy - Reverse Proxy en ANAK
+  - id: svc-caddy-anak
+    description: Reverse proxy Caddy para servicios internos (fiambre.local)
+    technology: docker
+    image: caddy:latest
+    port: 80
+    server: srv-anak
+    databases: []
+    dependencies: []
+    config: /home/fiambre/caddy/Caddyfile
+    routes:
+      - domain: devio.fiambre.local
+        target: 172.17.0.1:5001
+        service: svc-devio
+      - domain: grafana.fiambre.local
+        target: grafana:3000
+        service: svc-grafana
+      - domain: listmonk.fiambre.local
+        target: 100.70.74.125:9090
+        note: Proxy a Urek (listmonk)
+      - domain: "(default :80)"
+        target: 172.17.0.1:18789
+        service: svc-openclaw-gateway
+    tags:
+      - production
+      - networking
+      - reverse-proxy
+      - containerized
