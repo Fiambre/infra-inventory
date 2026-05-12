@@ -262,3 +262,117 @@ services:
       - networking
       - reverse-proxy
       - containerized
+
+  # Libra API - Selknam-Tech
+  - id: svc-libra-api
+    description: API backend para Libra (Selknam-Tech)
+    technology: docker
+    image: ghcr.io/selknam-tech/libra-core:latest
+    server: srv-anak
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - selknam
+      - containerized
+
+  # Libra Web - Frontend Selknam-Tech
+  - id: svc-libra-web
+    description: Frontend web para Libra (Selknam-Tech)
+    technology: docker
+    image: ghcr.io/selknam-tech/libra-web:latest
+    port: 3001
+    server: srv-anak
+    databases: []
+    dependencies:
+      - svc-libra-api
+    tags:
+      - production
+      - selknam
+      - containerized
+
+  # Libra Admin - Panel admin Selknam-Tech
+  - id: svc-libra-admin
+    description: Panel de administración para Libra (Selknam-Tech)
+    technology: docker
+    image: ghcr.io/selknam-tech/libra-admin:latest
+    port: 3002
+    server: srv-anak
+    databases: []
+    dependencies:
+      - svc-libra-api
+    tags:
+      - production
+      - selknam
+      - containerized
+
+  # Devio - Selknam-Tech
+  - id: svc-devio
+    description: Servicio Devio (Selknam-Tech)
+    technology: docker
+    image: ghcr.io/selknam-tech/devio:latest
+    port: 5001
+    server: srv-anak
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - selknam
+      - containerized
+
+  # Prometheus - Monitoreo y métricas
+  - id: svc-prometheus-anak
+    description: Prometheus para monitoreo de métricas en ANAK
+    technology: docker
+    image: prom/prometheus:latest
+    port: 9090
+    server: srv-anak
+    databases: []
+    dependencies:
+      - svc-node-exporter-anak
+    tags:
+      - production
+      - monitoring
+      - containerized
+
+  # Grafana - Dashboards de monitoreo
+  - id: svc-grafana
+    description: Dashboards de monitoreo y visualización
+    technology: docker
+    image: grafana/grafana:latest
+    port: 3000
+    server: srv-anak
+    databases: []
+    dependencies:
+      - svc-prometheus-anak
+    tags:
+      - production
+      - monitoring
+      - containerized
+
+  # BTC Kalman Stream - Trading
+  - id: svc-btc-kalman-stream
+    description: Stream de datos BTC con filtro Kalman
+    technology: docker
+    image: ghcr.io/fiambre/btc-kalman-stream:latest
+    server: srv-anak
+    databases: []
+    dependencies: []
+    repository: github.com/Fiambre/btc-kalman-stream
+    tags:
+      - production
+      - trading
+      - containerized
+
+  # Node Exporter - Métricas del host ANAK
+  - id: svc-node-exporter-anak
+    description: Exportador de métricas del sistema para Prometheus
+    technology: docker
+    image: quay.io/prometheus/node-exporter:latest
+    server: srv-anak
+    databases: []
+    dependencies: []
+    tags:
+      - production
+      - monitoring
+      - containerized
