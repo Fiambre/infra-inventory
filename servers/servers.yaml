@@ -1,98 +1,86 @@
-# Definiciones de servidores en la infraestructura
-# Actualizado: 2026-03-09
-
 servers:
-  # UREK - Servidor principal de home/lab
-  - id: srv-urek
-    hostname: urek
-    ip: 100.70.74.125
-    tailscale_ip: 100.70.74.125
-    provider: bare-metal
-    region: home-santiago
-    os: ubuntu-22.04
-    ram_gb: 3.7
-    storage_gb: 117
-    services:
-      - svc-homeassistant
-      - svc-n8n
-      - svc-minio
-      - svc-portainer
-      - svc-browserless
-      - svc-organizr
-      - svc-mosquitto
-      - svc-cloudflared
-      - svc-jupyterlab
-    databases:
-      - db-urek-postgres
-      - db-urek-mongo
-      - db-urek-webdb
-    tags:
-      - production
-      - lab
-      - home-automation
-
-  # ANAK - Servidor de desarrollo/cicd
-  - id: srv-anak
-    hostname: anak
-    ip: 172.19.0.1
-    tailscale_ip: 100.125.220.30
-    provider: bare-metal
-    region: home-santiago
-    os: ubuntu-22.04
-    ram_gb: 6.7
-    storage_gb: 914
-    services:
-      - svc-openclaw-gateway
-      - svc-docker-daemon
-    tags:
-      - development
-      - cicd
-      - docker-host
-
-  # KHUN - Servidor adicional
-  - id: srv-khun
-    hostname: khun
-    ip: 100.105.231.35
-    tailscale_ip: 100.105.231.35
-    provider: bare-metal
-    region: unknown
-    os: unknown
-    services: []
-    tags:
-      - active
-
-  # RAK - Servidor SGDP/Selknam (actualizado 2026-03-10)
-  - id: srv-rak
-    hostname: ubuntu
-    ip: 100.109.222.33
-    tailscale_ip: 100.109.222.33
-    provider: bare-metal
-    region: unknown
-    os: ubuntu
-    ram_gb: 2.4
-    storage_gb: 37
-    services:
-      - svc-n8n-rak
-      - svc-portainer-agent
-      - svc-rootsearch
-      - svc-wordpress
-      - svc-cloudflare-tunnel-rak
-    databases:
-      - db-rak-postgres
-      - db-rak-mongo
-      - db-rak-mysql
-    tags:
-      - production
-      - sgd-project
-
-  # PLAYA - Servidor offline
-  - id: srv-playa
-    hostname: playa
-    ip: 100.81.143.61
-    tailscale_ip: 100.81.143.61
-    provider: bare-metal
-    region: unknown
-    os: unknown
-    services: []
-    tags:
-      - online
+- id: srv-urek
+  hostname: urek
+  ip: 100.70.74.125
+  tailscale_ip: 100.70.74.125
+  provider: bare-metal
+  region: home-santiago
+  os: ubuntu-22.04
+  ram_gb: 3.7
+  storage_gb: 117
+  services:
+  - svc-homeassistant
+  - svc-n8n
+  - svc-minio
+  - svc-portainer
+  - svc-browserless
+  - svc-organizr
+  - svc-mosquitto
+  - svc-cloudflared
+  - svc-jupyterlab
+  databases:
+  - db-urek-postgres
+  - db-urek-mongo
+  - db-urek-webdb
+  tags:
+  - production
+  - lab
+  - home-automation
+- id: srv-anak
+  hostname: anak
+  ip: 172.19.0.1
+  tailscale_ip: 100.125.220.30
+  provider: bare-metal
+  region: home-santiago
+  os: ubuntu-22.04
+  ram_gb: 6.7
+  storage_gb: 914
+  services:
+  - svc-openclaw-gateway
+  - svc-docker-daemon
+  tags:
+  - development
+  - cicd
+  - docker-host
+- id: srv-khun
+  hostname: khun
+  ip: 100.105.231.35
+  tailscale_ip: 100.105.231.35
+  provider: bare-metal
+  region: unknown
+  os: unknown
+  services: []
+  tags:
+  - active
+- id: srv-rak
+  hostname: ubuntu
+  ip: 100.105.62.62
+  tailscale_ip: 100.105.62.62
+  provider: bare-metal
+  region: unknown
+  os: ubuntu
+  ram_gb: 2.4
+  storage_gb: 37
+  services:
+  - svc-n8n-rak
+  - svc-portainer-agent
+  - svc-rootsearch
+  - svc-wordpress
+  - svc-cloudflare-tunnel-rak
+  databases:
+  - db-rak-postgres
+  - db-rak-mongo
+  - db-rak-mysql
+  tags:
+  - production
+  - sgd-project
+- id: srv-playa
+  hostname: playa
+  ip: 100.81.143.61
+  tailscale_ip: 100.81.143.61
+  provider: bare-metal
+  region: unknown
+  os: unknown
+  services: []
+  tags:
+  - online
